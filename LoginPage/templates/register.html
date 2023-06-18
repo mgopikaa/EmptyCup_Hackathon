@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        /* Styles omitted for brevity */
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Register</h2>
+        {% if messages %}
+        <div class="alert alert-success">
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form id="register-form" method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+                <small class="constraint-text">Username must be between 3 and 20 characters long.</small>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                <small class="constraint-text">Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</small>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
+                <small class="constraint-text">Please enter a valid phone number.</small>
+            </div>
+            {% comment %} <div class="form-group">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" class="form-control" id="otp" name="otp" required>
+                <small id="otp-info" class="constraint-text"></small>
+            </div>
+            <button id="get-otp-btn" class="btn btn-primary">Get OTP</button> {% endcomment %}
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <div class="button-container">
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+        <div id="error-message" class="error-message" style="display: none;"></div>
+
+        {% comment %} <script>
+            document.getElementById('get-otp-btn').addEventListener('click', function(event) {
+                event.preventDefault();  // Prevent form submission
+                var emailInput = document.getElementById('email');
+                var email = emailInput.value;
+                if (email) {
+                    // AJAX request to generate and send OTP
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '{% url 'generate_otp' %}');
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');  // Add CSRF token header
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            document.getElementById('otp-info').textContent = 'OTP has been sent to your email.';
+                        } else {
+                            document.getElementById('otp-info').textContent = 'Failed to send OTP.';
+                        }
+                    };
+                    xhr.send('email=' + encodeURIComponent(email));
+                } else {
+                    document.getElementById('otp-info').textContent = 'Please enter a valid email address.';
+                }
+            });
+        </script> {% endcomment %}
+    </div>
+</body>
+</html>

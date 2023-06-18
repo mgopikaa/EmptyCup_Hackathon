@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <!-- Add your CSS stylesheets or external links here -->
+    <style>
+        /* Tabs container */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* Individual tab */
+        .tab {
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        /* Active tab */
+        .tab.active {
+            background-color: #ffffff;
+            border-bottom: 2px solid #000000;
+        }
+
+        /* Tab content */
+        .tab-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #000000;
+            border-top: none;
+            border-radius: 0 5px 5px 5px;
+        }
+
+        /* Logout button */
+        .logout-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logout-button button {
+            padding: 10px 20px;
+            background-color: #4caf50; /* Updated to green */
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif; /* Set a proper font */
+            font-size: 16px; /* Set a proper font size */
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Dashboard</h1>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="changeTab(1)">Tab 1</div>
+        <div class="tab" onclick="changeTab(2)">Tab 2</div>
+        <div class="tab" onclick="changeTab(3)">Tab 3</div>
+    </div>
+    
+    <div id="tab-content-1" class="tab-content">
+        <!-- Content for Tab 1 -->
+        <h2>Tab 1 Content</h2>
+        <p>This is the content for Tab 1.</p>
+    </div>
+    
+    <div id="tab-content-2" class="tab-content" style="display: none;">
+        <!-- Content for Tab 2 -->
+        <h2>Tab 2 Content</h2>
+        <p>This is the content for Tab 2.</p>
+    </div>
+    
+    <div id="tab-content-3" class="tab-content" style="display: none;">
+        <!-- Content for Tab 3 -->
+        <h2>Tab 3 Content</h2>
+        <p>This is the content for Tab 3.</p>
+    </div>
+    
+    <!-- Logout button -->
+    <div class="logout-button">
+        <button onclick="logout()">Logout</button>
+    </div>
+    
+    <!-- Add your additional dashboard content here -->
+    
+    <script>
+        function changeTab(tabIndex) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+            }
+            
+            // Remove active class from all tabs
+            var tabs = document.getElementsByClassName("tab");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            // Show the selected tab content
+            var selectedTabContent = document.getElementById("tab-content-" + tabIndex);
+            selectedTabContent.style.display = "block";
+            
+            // Add active class to the selected tab
+            var selectedTab = document.getElementsByClassName("tab")[tabIndex - 1];
+            selectedTab.classList.add("active");
+        }
+        
+        function logout() {
+            // Perform logout logic
+            // ...
+            
+            // Redirect to the login page
+            window.location.href = "{% url 'login' %}";
+        }
+    </script>
+</body>
+</html>
