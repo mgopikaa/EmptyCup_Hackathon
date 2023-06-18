@@ -1,0 +1,13 @@
+{
+    "builds": [
+      {
+        "src": "Hackathon/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "Hackathon/wsgi.py"
+      }
+    ]
